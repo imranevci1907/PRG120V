@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Oppgave 1</title>
+</head>
+<body>
+<h2>Oppgave 1</h3>
+<form method=¨post¨ action=¨oppgave-1.php¨id=¨oppgave-1¨ name=¨oppgave1¨>
+Fornavn <input type=¨text¨ id=¨fornavn¨ name=¨fornavn¨ required/><br/>
+Etternavn <input type=¨text¨ id=¨etternavn¨ name=¨etternavn¨ required/><br/>
+<input type=¨submit¨ value=¨fortsett¨ id=¨fortsett¨ name=¨fortsett¨ required/><br/>
+<input type= ¨reset¨ value=¨nullstill¨ id=¨nullstill¨ name=¨nullstill¨ required/><br/>
+</form>
+</body>
+</html>
