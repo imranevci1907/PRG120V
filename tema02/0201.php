@@ -1,5 +1,5 @@
-<?php /* Oppgave 1 */
-/*
+<?php 
+/* Oppgave 1
 /* Programmet mottar fra et HTML-skjema et svar på spørsmålet "Hva er 3 ganger 3 ?"
 /* Programmet sjekker om svaret er riktig og skriver ut en melding avhengig av om svaret er riktig eller feil
 */
