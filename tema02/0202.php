@@ -20,4 +20,4 @@ else /* det er ikke svart verken j eller n på spørsmålet */
 {
 print("Du har ikke svart ja eller nei p&aring; sp&oslash;rsm&aring;let om du er student <br/>");
 }
-?
+?>
