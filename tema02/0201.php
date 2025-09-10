@@ -10,6 +10,6 @@ print("Riktig. 3 ganger 3 er 9 <br/>");
 }
 else /* avgitt svar er feil */
 {
-print("Feil. 3 ganger 3 er ikke $svar. 3 ganger 3 er 9 <br/>");
+print("Feil. 3 ganger 3 er ikke $svar. 3 ganger 3 er 9 <br>");
 }
 ?>
