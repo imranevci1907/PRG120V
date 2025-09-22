@@ -1,49 +1,54 @@
-<?php  /* registrer-poststed */
+<?php  /* registrer-student */
 /*
-/*  Programmet lager et html-skjema for å registrere et poststed
-/*  Programmet registrerer data (postnr og poststed) i databasen
+/*  Programmet lager et html-skjema for å registrere en student
+/*  Programmet registrerer data (brukernavn, fornavn, etternavn, klassekode) i databasen
 */
 ?> 
 
-<h3>Registrer poststed </h3>
+<h3>Registrer student </h3>
 
-<form method="post" action="" id="registrerPoststedSkjema" name="registrerPoststedSkjema">
-  Postnr <input type="text" id="postnr" name="postnr" required /> <br/>
-  Poststed <input type="text" id="poststed" name="poststed" required /> <br/>
-  <input type="submit" value="Registrer poststed" id="registrerPoststedKnapp" name="registrerPoststedKnapp" /> 
+<form method="post" action="" id="registrerStudentSkjema" name="registrerStudentSkjema">
+  Brukernavn: <input type="text" id="brukernavn" name="brukernavn" required /> <br/>
+  Fornavn: <input type="text" id="fornavn" name="fornavn" required /> <br/>
+  Etternavn: <input type="text" id="etternavn" name="etternavn" required /> <br/>
+  Klassekode: <input type="text" id="klassekode" name="klassekode" required /> <br/>
+  <input type="submit" value="Registrer student" id="registrerStudentKnapp" name="registrerStudentKnapp" /> 
   <input type="reset" value="Nullstill" id="nullstill" name="nullstill" /> <br />
 </form>
 
 <?php 
-  if (isset($_POST ["registrerPoststedKnapp"]))
+  if (isset($_POST["registrerStudentKnapp"]))
+  {
+    $brukernavn = $_POST["brukernavn"];
+    $fornavn = $_POST["fornavn"];
+    $etternavn = $_POST["etternavn"];
+    $klassekode = $_POST["klassekode"];
+
+    if (!$brukernavn || !$fornavn || !$etternavn || !$klassekode)
     {
-      $postnr=$_POST ["postnr"];
-      $poststed=$_POST ["poststed"];
-
-      if (!$postnr || !$poststed)
-        {
-          print ("B&aring;de postnr og poststed m&aring; fylles ut");
-        }
-      else
-        {
-          include("db-tilkobling.php");  /* tilkobling til database-serveren utført og valg av database foretatt */
-
-          $sqlSetning="SELECT * FROM poststed WHERE postnr='$postnr';";
-          $sqlResultat=mysqli_query($db,$sqlSetning) or die ("ikke mulig &aring; hente data fra databasen");
-          $antallRader=mysqli_num_rows($sqlResultat); 
-
-          if ($antallRader!=0)  /* poststedet er registrert fra før */
-            {
-              print ("Poststedet er registrert fra f&oslashr");
-            }
-          else
-            {
-              $sqlSetning="INSERT INTO poststed VALUES('$postnr','$poststed');";
-              mysqli_query($db,$sqlSetning) or die ("ikke mulig &aring; registrere data i databasen");
-                /* SQL-setning sendt til database-serveren */
-
-              print ("F&oslash;lgende poststed er n&aring; registrert: $postnr $poststed"); 
-            }
-        }
+      print("Alle felt må fylles ut");
     }
+    else
+    {
+      include("db.php");  /* tilkobling til database-serveren utført og valg av database foretatt */
+
+      $sqlSetning = "SELECT * FROM student WHERE brukernavn='$brukernavn';";
+      $sqlResultat = mysqli_query($db, $sqlSetning) or die("ikke mulig å hente data fra databasen");
+      $antallRader = mysqli_num_rows($sqlResultat); 
+
+      if ($antallRader != 0)  /* student er registrert fra før */
+      {
+        print("Studenten er registrert fra før");
+      }
+      else
+      {
+        $sqlSetning = "INSERT INTO student VALUES('$brukernavn','$fornavn','$etternavn','$klassekode');";
+        mysqli_query($db, $sqlSetning) or die("ikke mulig å registrere data i databasen");
+          /* SQL-setning sendt til database-serveren */
+
+        print("Følgende student er nå registrert: $brukernavn $fornavn $etternavn $klassekode"); 
+      }
+    }
+  }
+?> 
 ?> 
