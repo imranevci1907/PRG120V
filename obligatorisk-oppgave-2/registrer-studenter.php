@@ -30,7 +30,7 @@
     }
     else
     {
-      include("db.php");  /* tilkobling til database-serveren utført og valg av database foretatt */
+      include("db-tilkobling.php"); /* tilkobling til database-serveren utført og valg av database foretatt */
 
       $sqlSetning = "SELECT * FROM student WHERE brukernavn='$brukernavn';";
       $sqlResultat = mysqli_query($db, $sqlSetning) or die("ikke mulig å hente data fra databasen");
