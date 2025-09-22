@@ -5,8 +5,8 @@
         $navn = $_POST["klassenavn"];
         $studium = $_POST["studiumkode"];
 
-        $sql = "INSERT INTO klasse (klassekode, klassenavn, studiumkode)
-                VALUES ('$kode', '$navn', '$studium')";
+        $sql = $sql = "INSERT INTO klasse (klassekode, klassenavn, studiumkode) 
+        VALUES ('$kode', '$navn', '$studium')";
         if ($conn->query($sql)) {
             echo "<p style='color:green;'>Klasse registrert!</p>";
         } else {

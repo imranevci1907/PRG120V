@@ -1,12 +1,14 @@
 <?php
-$host = "localhost";
-$user = "root";     // endre hvis du har annen bruker
-$pass = "";         // passord, hvis du har
-$db   = "skole";    // databasenavn du har laget
+$host = "localhost";      // server
+$user = "root";           // brukernavn til databasen
+$pass = "";               // passord (kan være tomt i noen oppsett)
+$db   = "prg120v";        // databasenavn du har laget
 
+// Oppretter tilkobling
 $conn = new mysqli($host, $user, $pass, $db);
 
+// Sjekk om det gikk bra
 if ($conn->connect_error) {
-    die("Databasefeil: " . $conn->connect_error);
+    die("Feil ved tilkobling: " . $conn->connect_error);
 }
 ?>
