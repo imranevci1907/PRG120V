@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";      // server
 $user = "root";           // brukernavn til databasen
-$pass = "";               // passord (kan være tomt i noen oppsett)
-$db   = "prg120v";        // databasenavn du har laget
+$pass = "";               // passord
+$db   = "prg120v";        // databasenavn
 
 // Oppretter tilkobling
 $conn = new mysqli($host, $user, $pass, $db);
