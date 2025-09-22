@@ -1,4 +1,5 @@
     <?php
+    <?php include("db.php"); ?>
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $kode = $_POST["klassekode"];
         $navn = $_POST["klassenavn"];
