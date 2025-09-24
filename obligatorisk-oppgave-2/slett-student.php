@@ -11,7 +11,7 @@ include("db-tilkobling.php");  /* kobling til database */
 <form method="post" action="">
   Brukernavn: 
   <input type="text" name="brukernavn" required>
-  <input type="submit" value="Slett student" name="slettStudentKnapp">
+ <input type="submit" value="Slett student" name="slettstudentKnapp" onclick="return bekreft();">
 </form>
 
 <?php

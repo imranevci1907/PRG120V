@@ -11,7 +11,7 @@ include("db-tilkobling.php");  /* kobling til database */
 <form method="post" action="">
   Klassekode: 
   <input type="text" name="klassekode" required>
-  <input type="submit" value="Slett klasse" name="slettKlasseKnapp">
+<input type="submit" value="Slett klasse" name="slettKlasseKnapp" onclick="return bekreft();">
 </form>
 
 <?php
