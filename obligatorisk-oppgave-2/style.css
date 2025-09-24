@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    color: #333;
+    background-color: #f4f6f8; /* uten mellomrom */
+    color: #333; /* uten mellomrom */
     margin: 0;
     padding: 20px;
 }
@@ -26,7 +26,7 @@ li {
 a {
     display: block;
     padding: 12px 18px;
-    background-color: #3498db;
+    background-color: #3498db; /* uten mellomrom */
     color: white;
     text-decoration: none;
     border-radius: 6px;
@@ -36,5 +36,5 @@ a {
 }
 
 a:hover {
-    background-color: #2980b9;
+    background-color: #2980b9; /* uten mellomrom */
 }
