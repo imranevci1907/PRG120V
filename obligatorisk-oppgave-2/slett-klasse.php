@@ -1,6 +1,6 @@
 <?php
 /*
-   Programmet sletter en klasse fra databasen
+   Programmet sletter en klasse (og alle tilhørende studenter) fra databasen
 */
 include("db-tilkobling.php");  /* kobling til database */
 
@@ -21,11 +21,16 @@ if (isset($_POST["slettKlasseKnapp"])) {
     if (!$klassekode) {
         print("Du må skrive inn en klassekode");
     } else {
-        $sqlSetning = "DELETE FROM klasse WHERE klassekode='$klassekode';";
-        $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å slette data i databasen");
+        // Først slett studenter som hører til klassen
+        $sqlStudenter = "DELETE FROM student WHERE klassekode='$klassekode';";
+        mysqli_query($db, $sqlStudenter);
+
+        // Deretter slett selve klassen
+        $sqlKlasse = "DELETE FROM klasse WHERE klassekode='$klassekode';";
+        mysqli_query($db, $sqlKlasse) or die("Ikke mulig å slette data i databasen");
 
         if (mysqli_affected_rows($db) > 0) {
-            print("Klasse med kode <b>$klassekode</b> er slettet.");
+            print("Klasse med kode <b>$klassekode</b> og alle tilhørende studenter er slettet.");
         } else {
             print("Fant ingen klasse med kode <b>$klassekode</b>.");
         }
