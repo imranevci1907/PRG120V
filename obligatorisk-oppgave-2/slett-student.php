@@ -1,45 +1,48 @@
-<?php
+<?php  /* slett-student */
 /*
-   Programmet sletter en student fra databasen
+   Programmet lager et skjema for å velge en student som skal slettes
+   Programmet sletter den valgte studenten
 */
-include("db-tilkobling.php");  /* kobling til database */
-?>
+?> 
 
-<!DOCTYPE html>
-<html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <title>Slett student</title>
-  <!-- Koble til JavaScript-fila -->
-  <script src="funksjoner.js"></script>
-</head>
-<body>
-  <h3>Slett student</h3>
+<script src="funksjoner.js"> </script>
 
-  <form method="post" action="">
-    Brukernavn:
-    <input type="text" name="brukernavn" required>
-    <!-- Koble knappen til bekreft()-funksjonen -->
-    <input type="submit" value="Slett student" name="slettStudentKnapp" onclick="return bekreft();">
-  </form>
+<h3>Slett student</h3>
 
-  <?php
-  if (isset($_POST["slettStudentKnapp"])) {
+<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onSubmit="return bekreft()">
+  Brukernavn: <input type="text" id="brukernavn" name="brukernavn" required /> <br/>
+  <input type="submit" value="Slett student" name="slettStudentKnapp" id="slettStudentKnapp" /> 
+</form>
+
+<?php
+  if (isset($_POST["slettStudentKnapp"]))
+  {	
       $brukernavn = $_POST["brukernavn"];
+	  
+      if (!$brukernavn)
+      {
+          print("Brukernavn må fylles ut");
+      }
+      else
+      {
+          include("db-tilkobling.php");  /* tilkobling til database-serveren utført og valg av database foretatt */
 
-      if (!$brukernavn) {
-          print("Du må skrive inn et brukernavn");
-      } else {
-          $sqlSetning = "DELETE FROM student WHERE brukernavn='$brukernavn';";
-          $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å slette data i databasen");
+          $sqlSetning = "SELECT * FROM student WHERE brukernavn='$brukernavn';";
+          $sqlResultat = mysqli_query($db,$sqlSetning) or die("Ikke mulig å hente data fra databasen");
+          $antallRader = mysqli_num_rows($sqlResultat); 
 
-          if (mysqli_affected_rows($db) > 0) {
-              print("Student med brukernavn <b>$brukernavn</b> er slettet.");
-          } else {
-              print("Fant ingen student med brukernavn <b>$brukernavn</b>.");
+          if ($antallRader == 0)  /* studenten finnes ikke */
+          {
+              print("Studenten finnes ikke");
+          }
+          else
+          {	  
+              $sqlSetning = "DELETE FROM student WHERE brukernavn='$brukernavn';";
+              mysqli_query($db,$sqlSetning) or die("Ikke mulig å slette data i databasen");
+                /* SQL-setning sendt til database-serveren */
+		
+              print("Følgende student er nå slettet: $brukernavn  <br />");
           }
       }
   }
-  ?>
-</body>
-</html>
+?> 
