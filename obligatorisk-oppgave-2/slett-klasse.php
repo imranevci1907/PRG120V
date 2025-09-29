@@ -1,45 +1,48 @@
-<?php
+<?php  /* slett-klasse */
 /*
-   Programmet sletter en klasse fra databasen
+   Programmet lager et skjema for å velge en klasse som skal slettes
+   Programmet sletter den valgte klassen
 */
-include("db-tilkobling.php");  /* kobling til database */
-?>
+?> 
 
-<!DOCTYPE html>
-<html lang="no">
-<head>
-  <meta charset="UTF-8">
-  <title>Slett klasse</title>
-  <!-- Koble til JavaScript-fila -->
-  <script src="funksjoner.js"></script>
-</head>
-<body>
-  <h3>Slett klasse</h3>
+<script src="funksjoner.js"> </script>
 
-  <form method="post" action="">
-    Klassekode:
-    <input type="text" name="klassekode" required>
-    <!-- Koble knappen til bekreft()-funksjonen -->
-    <input type="submit" value="Slett klasse" name="slettKlasseKnapp" onSubmit="return bekreft();">
-  </form>
+<h3>Slett klasse</h3>
 
-  <?php
-  if (isset($_POST["slettKlasseKnapp"])) {
+<form method="post" action="" id="slettKlasseSkjema" name="slettKlasseSkjema" onSubmit="return bekreft()">
+  Klassekode: <input type="text" id="klassekode" name="klassekode" required /> <br/>
+  <input type="submit" value="Slett klasse" name="slettKlasseKnapp" id="slettKlasseKnapp" /> 
+</form>
+
+<?php
+  if (isset($_POST["slettKlasseKnapp"]))
+  {	
       $klassekode = $_POST["klassekode"];
+	  
+      if (!$klassekode)
+      {
+          print("Klassekode må fylles ut");
+      }
+      else
+      {
+          include("db-tilkobling.php");  /* tilkobling til database-serveren utført og valg av database foretatt */
 
-      if (!$klassekode) {
-          print("Du må skrive inn en klassekode");
-      } else {
-          $sqlSetning = "DELETE FROM klasse WHERE klassekode='$klassekode';";
-          $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å slette data i databasen");
+          $sqlSetning = "SELECT * FROM klasse WHERE klassekode='$klassekode';";
+          $sqlResultat = mysqli_query($db,$sqlSetning) or die("Ikke mulig å hente data fra databasen");
+          $antallRader = mysqli_num_rows($sqlResultat); 
 
-          if (mysqli_affected_rows($db) > 0) {
-              print("Klasse med kode <b>$klassekode</b> er slettet.");
-          } else {
-              print("Fant ingen klasse med kode <b>$klassekode</b>.");
+          if ($antallRader == 0)  /* klassen finnes ikke */
+          {
+              print("Klassen finnes ikke");
+          }
+          else
+          {	  
+              $sqlSetning = "DELETE FROM klasse WHERE klassekode='$klassekode';";
+              mysqli_query($db,$sqlSetning) or die("Ikke mulig å slette data i databasen");
+                /* SQL-setning sendt til database-serveren */
+		
+              print("Følgende klasse er nå slettet: $klassekode  <br />");
           }
       }
   }
-  ?>
-</body>
-</html>
+?> 
