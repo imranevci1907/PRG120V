@@ -20,7 +20,7 @@ include("db-tilkobling.php");  /* kobling til database */
     Klassekode:
     <input type="text" name="klassekode" required>
     <!-- Koble knappen til bekreft()-funksjonen -->
-    <input type="submit" value="Slett klasse" name="slettKlasseKnapp" onsubmit="return bekreft();">
+    <input type="submit" value="Slett klasse" name="slettKlasseKnapp" onSubmit="return bekreft();">
   </form>
 
   <?php
