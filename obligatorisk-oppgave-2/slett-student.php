@@ -2,6 +2,9 @@
 
 <h3>Slett student</h3>
 
+<!-- kobler inn bekreft()-funksjonen -->
+<script src="funksjoner.js"></script>
+
 <form method="post" action="" onSubmit="return bekreft()">
   Student: 
   <select name="brukernavn" required>
@@ -17,7 +20,8 @@ if (isset($_POST["slettStudentKnapp"])) {
     $brukernavn = $_POST["brukernavn"];
 
     $sql = "SELECT * FROM student WHERE brukernavn='$brukernavn';";
-    $resultat = mysqli_query($db,$sql);
+    $resultat = mysqli_query($db,$sql) or die("Feil i SELECT: " . mysqli_error($db));
+
     if (mysqli_num_rows($resultat) == 0) {
         print("Studenten finnes ikke");
     } else {
