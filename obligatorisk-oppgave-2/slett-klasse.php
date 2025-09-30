@@ -28,7 +28,7 @@ if (isset($_POST["slettKlasseKnapp"])) {
         $resultat = mysqli_query($db,$sql) or die("Feil i SELECT student: " . mysqli_error($db));
 
         if (mysqli_num_rows($resultat) > 0) {
-            print("Kan ikke slette klassen fordi det finnes registrerte studenter");
+            print("Kan ikke slette klassen fordi det finnes registrerte studenter.");
         } else {
             $sql = "DELETE FROM klasse WHERE klassekode='$klassekode';";
             mysqli_query($db,$sql) or die("Feil i DELETE: " . mysqli_error($db));
