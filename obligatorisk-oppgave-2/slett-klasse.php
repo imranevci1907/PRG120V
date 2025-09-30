@@ -1,5 +1,3 @@
-<?php /* slett-klasse-med-listeboks */ ?>
-
 <h3>Slett klasse</h3>
 
 <!-- kobler inn bekreft()-funksjonen -->
@@ -25,9 +23,17 @@ if (isset($_POST["slettKlasseKnapp"])) {
     if (mysqli_num_rows($resultat) == 0) {
         print("Klassen finnes ikke");
     } else {
-        $sql = "DELETE FROM klasse WHERE klassekode='$klassekode';";
-        mysqli_query($db,$sql) or die("Ikke mulig å slette klassen (sjekk om studenter er registrert på den)");
-        print("Klasse slettet: $klassekode");
+        // 🔹 sjekk om det finnes studenter på klassen
+        $sql = "SELECT * FROM student WHERE klassekode='$klassekode';";
+        $resultat = mysqli_query($db,$sql) or die("Feil i SELECT student: " . mysqli_error($db));
+
+        if (mysqli_num_rows($resultat) > 0) {
+            print("Kan ikke slette klassen fordi det finnes registrerte studenter");
+        } else {
+            $sql = "DELETE FROM klasse WHERE klassekode='$klassekode';";
+            mysqli_query($db,$sql) or die("Feil i DELETE: " . mysqli_error($db));
+            print("Klasse slettet: $klassekode");
+        }
     }
 }
 ?>
